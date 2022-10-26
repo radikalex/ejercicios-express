@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 const puerto = 3000;
 const app = express();
 
@@ -9,6 +10,17 @@ const productoExiste = function (req, res, next) {
     }else{
         res.status(404).send({msg:`No se ha encontrado el producto con id ${req.params.id}`})
     }
+}
+
+const siguienteIndiceDisponible = () => {
+    const array = [...items]
+    array.sort((a, b) => { return a.id - b.id});
+    for (let i = 1; i < array.length + 1; i++) {
+        if(i != array[i - 1].id)
+            return i;
+    }
+
+    return items.length + 1;
 }
 
 const items = [{
@@ -43,7 +55,7 @@ const items = [{
     }
 ];
 
-app.use(express.json());
+app.use(express.json(), cors());
 
 app.get('/', (req, res) => {
     res.send({
@@ -64,7 +76,7 @@ app.post('/productos', (req, res) => {
     }
     else{
         items.push({
-            id: items.length + 1,
+            id: siguienteIndiceDisponible(),
             nombre: req.body.nombre,
             precio: req.body.precio
         });
@@ -86,10 +98,14 @@ app.put('/productos/id/:id', productoExiste, (req, res) => {
 })
 
 app.delete('/productos/id/:id', productoExiste, (req, res) => {
+    let indice = 0;
+    while(items[indice].id != req.params.id)
+        indice++;
+    items.splice(indice, 1);
     res.send({
         msg: "Producto Eliminado",
-        productos: items.filter(item => item.id != req.params.id)}
-    )
+        productos: items
+    })
 })
 
 app.get('/elementoPrecio', (req, res) => {
@@ -108,6 +124,7 @@ app.get('/elementoPrecio', (req, res) => {
     }
 })
 
+// Era solo entre 50 y 250 pero yo lo he puesto general
 app.get('/elementoRangoPrecio', (req, res) => {
     if(!req.query.precioMin || !req.query.precioMax)
         res.status(400).send({msg: 'No se ha rellenado correctamente algun parametro de la query'})
@@ -127,7 +144,7 @@ app.get('/elementoRangoPrecio', (req, res) => {
 app.get('/productos/id/:id', productoExiste, (req, res) => {
     res.send({
         msg: "Producto/s encontrado/s por id",
-        members: items.filter(item => item.id == req.params.id)}
+        products: items.filter(item => item.id == req.params.id)}
     )
 })
 
@@ -136,7 +153,7 @@ app.get('/productos/nombre/:nombre', (req, res) => {
     if(productosNombre.length > 0) {
         res.send({
             msg: "Producto/s encontrado/s por nombre",
-            members: productosNombre
+            products: productosNombre
         })
     } else {
         res.send({

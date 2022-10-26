@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <span onclick="irNuevoProducto()">Añadir producto</span>
+            <span onclick="irVerProductos()">Ver productos</span>
+        </nav>
+    </header>
+    <main>
+
+        <div id="nuevo-producto" class="nuevo-producto">
+            <form onsubmit="crearProducto(event)">
+                <h1 class="align-self-center">Añadir un nuevo producto</h1>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" name="nombre">
+                <label for="precio">Precio:</label>
+                <input type="number" class="form-control" id="precio" name="precio">
+
+                <button class="enviar btn btn-primary mt-2" onclick="crearProducto(event)">Enviar</button>
+                <div id="alertas-form"></div>
+            </form>
+        </div>
+
+        <div id="ver-productos" class="hide">
+            <h1 class="nuestros-productos">Nuestros productos</h1>
+            <div id="contenedor-productos"></div>
+        </div>
+    </main>
+
+    <script src="main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</body>
+</html>

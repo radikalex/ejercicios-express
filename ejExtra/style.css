@@ -1,0 +1,100 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+header {
+    height: 60px;
+    background-color: grey;
+    color: whitesmoke;
+}
+
+nav {
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav span {
+    font-size: 18px;
+    width: 200px;
+    text-align: center;
+    transition: all 1s;
+}
+
+nav span:hover {
+    font-size: 25px;
+    transition: all 1s;
+}
+
+main {
+    height: calc(100% - 60px);
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+form {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.enviar {
+    width: 30%;
+    align-self: flex-end;
+}
+
+#ver-productos {
+    width: 100%;
+}
+
+#contenedor-productos {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.card {
+    width: 22.5%;
+    margin: 1.25%;
+}
+
+.card-header {
+    text-align: center;
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.card-precio {
+    padding: 10px 70px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-eliminar {
+    border-top: 1px solid black;
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nuestros-productos {
+    text-align: center;
+}
+
+.precio {
+    font-weight: bold;
+}
